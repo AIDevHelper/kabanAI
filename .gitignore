@@ -32,7 +32,6 @@ data/aiboard.db-wal
 data/workdirs/
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -54,3 +53,7 @@ Thumbs.db
 *_backup.*
 *.bak
 README_old.md
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
