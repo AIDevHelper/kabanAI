@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Board - KabanAI</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="login-view" class="view active">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="logo">
+                            <div class="logo-icon">🤖</div>
+                            <h1>KabanAI</h1>
+                        </div>
+                        <p class="tagline">AI-Powered Task Board</p>
+                    </div>
+                    
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="input-group">
+                            <label>Username</label>
+                            <input type="text" id="username" placeholder="Enter your username" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 1rem 0;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+                                    <div class="theme-toggle-slider">
+                                        <span id="theme-icon-login">☀️</span>
+                                    </div>
+                                </div>
+                                <span class="theme-toggle-label" id="theme-label">Light mode</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-login">
+                            <span>Sign In</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                    
+                    <div class="login-footer">
+                        <p>Automate your AI workflows with ease</p>
+                    </div>
+                </div>
+                
+                <div class="background-animation">
+                    <div class="circle circle-1"></div>
+                    <div class="circle circle-2"></div>
+                    <div class="circle circle-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects View -->
+        <div id="projects-view" class="view">
+            <nav class="top-nav">
+                <div class="nav-content">
+                    <div class="nav-left">
+                        <div class="logo-small">
+                            <span class="logo-icon">🤖</span>
+                            <span class="logo-text">KabanAI</span>
+                        </div>
+                    </div>
+                    <div class="nav-right">
+                        <div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+                            <div class="theme-toggle-slider">
+                                <span id="theme-icon">☀️</span>
+                            </div>
+                        </div>
+                        <div class="user-profile">
+                            <div class="user-avatar">T</div>
+                            <span class="user-name" id="logged-user">Thomas</span>
+                        </div>
+                        <button class="btn btn-ghost" onclick="handleLogout()">Logout</button>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="main-content">
+                <header class="page-header">
+                    <div>
+                        <h1 class="page-title">My Projects</h1>
+                        <p class="page-subtitle">Manage your AI-powered automation workflows</p>
+                    </div>
+                    <button class="btn btn-primary btn-create" onclick="showCreateProjectModal()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>New Project</span>
+                    </button>
+                </header>
+                
+                <div id="projects-list" class="projects-grid"></div>
+            </div>
+        </div>
+
+        <!-- Board View -->
+        <div id="board-view" class="view">
+            <nav class="top-nav">
+                <div class="nav-content">
+                    <div class="nav-left">
+                        <button class="btn btn-ghost btn-back" onclick="backToProjects()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M12 16L6 10L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Back
+                        </button>
+                        <h2 class="board-title" id="project-name"></h2>
+                    </div>
+                    <div class="nav-right">
+                        <button class="btn btn-success" onclick="runProject()" id="run-project-btn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M6 4L15 10L6 16V4Z" fill="currentColor"/>
+                            </svg>
+                            Run Project
+                        </button>
+                        <button class="btn btn-danger btn-ghost" onclick="deleteProject()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M6 8V16M10 8V16M14 8V16M4 6H16M14 6V4C14 3.44772 13.5523 3 13 3H7C6.44772 3 6 3.44772 6 4V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="board-container">
+                <div class="lane" data-lane="Architecture">
+                    <div class="lane-header">
+                        <div class="lane-title">
+                            <span class="lane-icon">🏗</span>
+                            <h3>Architecture</h3>
+                        </div>
+                        <button class="btn-icon" onclick="showCreateTaskModal('Architecture')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="tasks-container" id="lane-Architecture"></div>
+                </div>
+
+                <div class="lane" data-lane="Documentation">
+                    <div class="lane-header">
+                        <div class="lane-title">
+                            <span class="lane-icon">📚</span>
+                            <h3>Documentation</h3>
+                        </div>
+                        <button class="btn-icon" onclick="showCreateTaskModal('Documentation')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="tasks-container" id="lane-Documentation"></div>
+                </div>
+
+                <div class="lane" data-lane="Coding">
+                    <div class="lane-header">
+                        <div class="lane-title">
+                            <span class="lane-icon">💻</span>
+                            <h3>Coding</h3>
+                        </div>
+                        <button class="btn-icon" onclick="showCreateTaskModal('Coding')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="tasks-container" id="lane-Coding"></div>
+                </div>
+
+                <div class="lane" data-lane="Testing">
+                    <div class="lane-header">
+                        <div class="lane-title">
+                            <span class="lane-icon">🧪</span>
+                            <h3>Testing</h3>
+                        </div>
+                        <button class="btn-icon" onclick="showCreateTaskModal('Testing')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="tasks-container" id="lane-Testing"></div>
+                </div>
+
+                <div class="lane" data-lane="Deploy">
+                    <div class="lane-header">
+                        <div class="lane-title">
+                            <span class="lane-icon">🚀</span>
+                            <h3>Deploy</h3>
+                        </div>
+                        <button class="btn-icon" onclick="showCreateTaskModal('Deploy')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="tasks-container" id="lane-Deploy"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('project-modal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Project</h2>
+                <button class="modal-close" onclick="closeModal('project-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="project-form" onsubmit="createProject(event)">
+                <div class="input-group">
+                    <label>Project Name *</label>
+                    <input type="text" id="project-name-input" placeholder="Enter project name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea id="project-description-input" rows="3" placeholder="What is this project about?"></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('project-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create/Edit Task Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('task-modal')"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="task-modal-title">Create Task</h2>
+                <button class="modal-close" onclick="closeModal('task-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="task-form" onsubmit="saveTask(event)">
+                <input type="hidden" id="task-id">
+                <input type="hidden" id="task-lane">
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Task Name *</label>
+                        <input type="text" id="task-name" placeholder="Enter task name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Execution Order *</label>
+                        <input type="number" id="task-execution-order" value="1" min="1" required>
+                        <small>Tasks with same order run in parallel</small>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>AI Prompt *</label>
+                    <textarea id="task-prompt" rows="4" placeholder="Enter your AI prompt..." required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>CLI Tool *</label>
+                        <select id="task-cli-tool" required>
+                            <option value="copilot">GitHub Copilot CLI (copilot)</option>
+                            <option value="gh">GitHub CLI (gh)</option>
+                            <option value="gemini">Gemini CLI</option>
+                            <option value="aider">Aider</option>
+                            <option value="claude">Claude CLI</option>
+                            <option value="gpt">ChatGPT CLI</option>
+                            <option value="custom">Custom Command</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="task-is-remote">
+                            <span>Remote Execution (SSH)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="remote-host-group" class="input-group" style="display: none;">
+                    <label>Remote Host (SSH)</label>
+                    <input type="text" id="task-remote-host" placeholder="user@hostname">
+                </div>
+
+                <div class="input-group">
+                    <label>Working Directory</label>
+                    <div class="input-with-button">
+                        <input type="text" id="task-working-dir" placeholder="/path/to/workdir">
+                        <button type="button" class="btn btn-secondary btn-browse" onclick="browseDirectory()">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 4h4l1 2h7v8H2V4z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                            </svg>
+                            Browse
+                        </button>
+                    </div>
+                    <small>Select a local directory for task execution</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Git Repository (Optional)</label>
+                    <input type="text" id="task-git-repo" value="nogit" placeholder="https://github.com/user/repo.git or 'nogit' to skip">
+                    <small>Default is 'nogit' - replace with git URL to clone repository</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('task-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Task Details Modal -->
+    <div id="task-details-modal" class="modal">
+        <div class="modal-overlay" onclick="closeModal('task-details-modal')"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="task-details-name"></h2>
+                <button class="modal-close" onclick="closeModal('task-details-modal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="task-details">
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span id="task-details-status" class="status-badge"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Lane</strong>
+                        <span id="task-details-lane"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Execution Order</strong>
+                        <span id="task-details-order"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>CLI Tool</strong>
+                        <span id="task-details-cli"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <strong>Prompt</strong>
+                    <div id="task-details-prompt" class="code-block"></div>
+                </div>
+
+                <div class="detail-section">
+                    <strong>Configuration</strong>
+                    <div class="config-grid">
+                        <div>
+                            <span class="config-label">Working Directory:</span>
+                            <span id="task-details-workdir"></span>
+                        </div>
+                        <div>
+                            <span class="config-label">Git Repository:</span>
+                            <span id="task-details-git"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <h3>Output</h3>
+                <pre id="task-details-output" class="output-box"></pre>
+            </div>
+
+            <div id="error-section" class="error-section" style="display: none;">
+                <h3>Error</h3>
+                <pre id="task-details-error" class="error-box"></pre>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('task-details-modal')">Close</button>
+                <button class="btn btn-primary" onclick="editTaskFromDetails()">Edit Task</button>
+                <button class="btn btn-danger" onclick="deleteTaskFromDetails()">Delete Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  kabanai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kabanai-app
+    ports:
+      - "5001:5001"
+    volumes:
+      # Persist database and work directories
+      - ./data:/app/data
+      # Optional: Mount your local directories for task execution
+      - ${HOME}/Documents:/mnt/documents:ro
+      - ${HOME}/Desktop:/mnt/desktop:ro
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    networks:
+      - kabanai-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/api/projects"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+networks:
+  kabanai-network:
+    driver: bridge
+
+volumes:
+  kabanai-data:
+    driver: local

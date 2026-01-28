@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  kabanai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kabanai-dev
+    ports:
+      - "5001:5001"
+    volumes:
+      # Mount source code for live reload
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - PYTHONUNBUFFERED=1
+    command: python backend/app.py
+    networks:
+      - kabanai-network
+    stdin_open: true
+    tty: true
+
+networks:
+  kabanai-network:
+    driver: bridge

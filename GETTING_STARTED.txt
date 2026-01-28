@@ -1,0 +1,226 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║              🤖 KabanAI - Complete Setup Guide              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+📍 Location: /Users/admin/Documents/Thomas-SRC/KabanAI/ai-board
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🚀 QUICK START - TWO OPTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌──────────────────────────────────────────────────────────────┐
+│ OPTION 1: Docker (Recommended) ⭐                            │
+└──────────────────────────────────────────────────────────────┘
+
+  1. Start the application:
+     $ ./docker-start.sh
+
+  2. Open browser to: http://localhost:5001
+  
+  3. Login with: thomas / cb1312ef
+
+  That's it! 🎉
+
+┌──────────────────────────────────────────────────────────────┐
+│ OPTION 2: Python Virtual Environment                         │
+└──────────────────────────────────────────────────────────────┘
+
+  1. Activate virtual environment:
+     $ source venv/bin/activate
+
+  2. Start server:
+     $ cd backend && python3 app.py
+
+  3. Open browser to: http://localhost:5001
+  
+  4. Login with: thomas / cb1312ef
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📚 DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  README.md             Main project overview
+  SUMMARY.md            Complete project summary
+  SESSION.md            Session details & architecture
+  CLAUDE.md             AI assistant continuation guide
+  DOCKER.md             Complete Docker guide
+  DOCKER-QUICKSTART.md  Quick Docker reference
+  UI_UPDATE.md          UI feature details
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🐳 DOCKER COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Start (Production):
+  $ ./docker-start.sh
+  $ docker-compose up -d
+
+  Start (Development):
+  $ ./docker-start.sh dev
+
+  Stop:
+  $ ./docker-stop.sh
+  $ docker-compose down
+
+  View Logs:
+  $ docker-compose logs -f
+
+  Restart:
+  $ docker-compose restart
+
+  Rebuild:
+  $ docker-compose up -d --build
+
+  Shell Access:
+  $ docker-compose exec kabanai bash
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✨ FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ Login System (thomas / cb1312ef)
+  ✓ Dark/Light Mode Toggle (☀️/🌙)
+  ✓ Project Management (CRUD)
+  ✓ Kanban Board (5 lanes)
+  ✓ AI CLI Integration (copilot, gemini, aider, etc.)
+  ✓ Parallel Task Execution
+  ✓ Git Integration ("nogit" option)
+  ✓ Directory Browser (quick paths)
+  ✓ Remote SSH Execution
+  ✓ Real-time Status Updates
+  ✓ Running State Prevention
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🎯 USAGE FLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Login          → thomas / cb1312ef
+  2. Create Project → Name and description
+  3. Add Tasks      → Choose lane (Architecture, Documentation, etc.)
+  4. Configure      → Set CLI tool, prompt, working dir
+  5. Set Order      → Tasks with same number run in parallel
+  6. Run Project    → Click "Run Project" button
+  7. Monitor        → Watch real-time status updates
+  8. View Output    → Click task card for details
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🎨 TASK STATUS COLORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  💜 Purple  → Pending (not started)
+  💚 Green   → Running (in progress, pulsing)
+  💙 Blue    → Success (completed)
+  ❤️  Red     → Error (failed)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🔧 SUPPORTED CLI TOOLS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  - GitHub Copilot CLI (copilot)
+  - Gemini CLI (gemini)
+  - Aider (aider)
+  - Claude CLI (claude)
+  - ChatGPT CLI (gpt)
+  - Custom Commands
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📂 QUICK PATHS (Directory Browser)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📁 Documents   → /Users/admin/Documents
+  🤖 KabanAI     → /Users/admin/Documents/Thomas-SRC/KabanAI
+  🖥 Desktop     → /Users/admin/Desktop
+  🏠 Home        → /Users/admin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🐛 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Docker Issues:
+  $ docker-compose logs -f kabanai
+  $ docker-compose restart
+  $ docker-compose up -d --build
+
+  Python Issues:
+  $ lsof -i :5001
+  $ source venv/bin/activate
+  $ pip install -r backend/requirements.txt
+
+  UI Issues:
+  - Hard refresh: Cmd+Shift+R (Mac) / Ctrl+Shift+F5 (Win)
+  - Check browser console (F12)
+  - Clear localStorage
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📦 PROJECT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Backend:
+  └── backend/
+      ├── app.py              Flask API server
+      └── requirements.txt    Python dependencies
+
+  Frontend:
+  └── frontend/
+      ├── index.html          Main HTML
+      └── static/
+          ├── css/styles.css  Theme-aware styles
+          └── js/app.js       Application logic
+
+  Docker:
+  ├── Dockerfile              Container image
+  ├── docker-compose.yml      Main config
+  ├── docker-compose.dev.yml  Dev overrides
+  ├── docker-compose.prod.yml Prod settings
+  ├── .dockerignore           Build optimization
+  ├── docker-start.sh         Start script ⭐
+  └── docker-stop.sh          Stop script
+
+  Data (Created at runtime):
+  └── data/
+      ├── aiboard.db          SQLite database
+      └── workdirs/           Task execution dirs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🔑 IMPORTANT NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ★ Default login: thomas / cb1312ef
+  ★ Git repo defaults to "nogit" (change if needed)
+  ★ Use Browse button for quick directory selection
+  ★ Tasks with same order number run in parallel
+  ★ Toggle theme (☀️/🌙) on any screen
+  ★ Theme persists across sessions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✅ STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Backend:        ✅ Complete
+  Frontend:       ✅ Complete
+  Docker:         ✅ Complete
+  Documentation:  ✅ Complete
+  Theme System:   ✅ Complete
+  
+  Project Status: 🎉 Production Ready!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  💡 For detailed information, see:
+     - SUMMARY.md (complete overview)
+     - DOCKER.md (Docker deep dive)
+     - SESSION.md (technical details)
+     - CLAUDE.md (development guide)
+
+  🚀 Ready to automate your AI workflows!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Version: 1.0.0
+  Date: 2026-01-28
+  Developer: Thomas
+  License: MIT
+
+╚══════════════════════════════════════════════════════════════╝
