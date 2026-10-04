@@ -53,7 +53,3 @@ Thumbs.db
 *_backup.*
 *.bak
 README_old.md
-branch_structure.json
-temp_auto_push.bat
-temp_interactive_push.bat
-.gitignore
